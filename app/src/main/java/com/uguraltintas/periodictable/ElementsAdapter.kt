@@ -8,13 +8,26 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.uguraltintas.periodictable.databinding.RecyclerRowElementsBinding
 
-class ElementsAdapter(private val list: ArrayList<Element>) :
+class ElementsAdapter(
+    private val list: ArrayList<Element>,
+    private val listener: OnItemClickListener
+) :
     RecyclerView.Adapter<ElementsAdapter.ElementsViewHolder>() {
-    class ElementsViewHolder(private val binding: RecyclerRowElementsBinding) :
+    inner class ElementsViewHolder(private val binding: RecyclerRowElementsBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Element) {
             binding.element = item
+            binding.clElement.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onClick(getData(position))
+                }
+            }
         }
+    }
+
+    interface OnItemClickListener {
+        fun onClick(element: Element)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ElementsViewHolder {
@@ -25,6 +38,7 @@ class ElementsAdapter(private val list: ArrayList<Element>) :
 
     override fun onBindViewHolder(holder: ElementsViewHolder, position: Int) {
         holder.bind(list[position])
+
     }
 
     override fun getItemCount(): Int {
@@ -37,5 +51,9 @@ class ElementsAdapter(private val list: ArrayList<Element>) :
 
     override fun getItemViewType(position: Int): Int {
         return position
+    }
+
+    fun getData(position: Int): Element {
+        return list[position]
     }
 }
