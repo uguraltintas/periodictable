@@ -14,8 +14,8 @@
         app:setBackgroundColor="@{Element.backgroundColor}"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="300dp"
-        android:minHeight="300dp"
+        android:minWidth="250dp"
+        android:minHeight="250dp"
         android:orientation="vertical">
 
         <ImageView
@@ -34,6 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:padding="8dp"
             android:gravity="center"
             android:text="@{Element.symbol}"
             android:textSize="24sp"
